@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}
+{% endblock %}
+{% block content%}
+<p class="text-sm-start fs-2 fw-bold">Delete Transaction</p>
+<form method="POST">
+    <p>Are you sure you want to delete <strong div class="fs-5">{{object.menuItem}}</strong> at <strong div class="fs-5">{{object.timeStamp}}</strong> from transactions?</p>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="button" class="btn btn-outline-dark" onclick="location.href='{% url 'purchases' %}'">Cancel</button>
+    <input class="btn btn-outline-danger" type="submit" value="Delete"/>
+</form>
+{% endblock %}

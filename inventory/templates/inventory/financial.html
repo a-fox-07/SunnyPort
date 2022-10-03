@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Financials</h1>
+<div class="form-floating mb-3">
+    <input readonly class="form-control" id="revenue" value="${{ revenue|floatformat:2 }}"></input>
+    <label for="revenue">Revenue</label>
+</div>
+<div class="form-floating mb-3">
+    <input readonly class="form-control" id="expense" value="${{ food_expense|floatformat:2 }}"></input>
+    <label for="expense">Expenses</label>
+</div>
+<div class="form-floating mb-3">
+    <input readonly class="form-control" id="profit" value="${{ profit|floatformat:2 }}"></input>
+    <label for="profit">Profit</label>
+</div>
+{% endblock %}

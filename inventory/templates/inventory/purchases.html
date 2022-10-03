@@ -1,0 +1,28 @@
+{% extends 'base.html' %}{% load static %}
+{% block title %}
+
+{% endblock %}
+{% block content%}
+<p class="text-sm-start fs-2 fw-bold">Purchases</p>
+<table class="table table-light table-striped">
+    <tr>
+        <th class="table-dark">Time Stamp</th>
+        <th class="table-dark">Purchase</th>
+        <th class="table-dark">Manage</th>
+    </tr>
+    <tr>
+        <td colspan="4"><button type="button" class="btn btn-dark" onclick="location.href='{% url 'create_purchase' %}'">Add Transaction</button></td>
+    </tr>
+    {% for purchase in object_list|dictsortreversed:"timeStamp" %}
+    <tr>
+        <td class="align-middle">{{purchase.timeStamp}}</td>
+        <td class="align-middle">{{purchase.menuItem.menuItemName}}</td>
+        <td>
+            <button type="button" class="btn btn-outline-dark" onclick="location.href='{% url 'delete_purchase' purchase.id %}'">
+                <img src="{% static 'inventory/trash3.svg' %}" alt="trash" width="18" height="18"><span class="align-middle"> Delete</span>
+            </button>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

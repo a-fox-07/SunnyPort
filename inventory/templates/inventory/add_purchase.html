@@ -1,0 +1,21 @@
+{% extends 'base.html' %}{% load static %}{% load widget_tweaks %}
+{% block title %}
+
+{% endblock %}
+{% block content %}
+<p class="text-sm-start fs-2 fw-bold">Add Transaction</p>
+<form method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+    <select class="form-select" name="menu_item" id="menu_item" required>
+        {% for menu_item in menu_available %}
+            <option value="{{ menu_item.id }}">{{ menu_item.menuItemName }}</option>
+        {% endfor %}
+    </select>
+    </div>
+    <div>
+        <input class="btn btn-outline-dark" type="submit" value="Submit"/>
+        <button type="button" class="btn btn-outline-dark" onclick="location.href='{% url 'purchases' %}'">Cancel</button>
+    </div>
+    </form>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}{% load static %}
+{% block title %}
+
+{% endblock %}
+{% block content%}
+<p class="text-sm-start fs-2 fw-bold">Recipe Requirments</p>
+<table class="table table-light table-striped">
+    <tr>
+        <th class="table-dark">Menu Item</th>
+        <th class="table-dark">Ingredient</th>
+        <th class="table-dark">Quantity per Dish</th>
+        <th class="table-dark">Manage</th>
+    </tr>
+    {% for requirement in object_list|dictsort:"menuItem.menuItemName" %}
+    <tr>
+        <td>{{requirement.menuItem.menuItemName}}</td>
+        <td>{{requirement.ingredient.ingredientName}}</td>
+        <td>{{requirement.quantity}} {{requirement.ingredient.ingredientUnit}}</td>
+        <td><button type="button" class="btn btn-outline-dark" onclick="location.href='{% url 'update_recipe_requirement' requirement.id %}'"><img src="{% static 'inventory/sliders.svg' %}" alt="sliders" width="18" height="18"><span class="align-middle"> Update</span></button>
+            <button type="button" class="btn btn-outline-dark" onclick="location.href='{% url 'delete_recipe_requirement' requirement.id %}'"><img src="{% static 'inventory/trash3.svg' %}" alt="trash" width="18" height="18"><span class="align-middle">Delete</span></button></td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <td colspan="4"><button type="button" class="btn btn-dark" onclick="location.href='{% url 'create_recipe_requirement' %}'">Add Requirment</button></td>
+    </tr>
+</table>
+{% endblock %}

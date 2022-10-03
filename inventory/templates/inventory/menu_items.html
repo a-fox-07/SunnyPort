@@ -1,0 +1,46 @@
+{% extends 'base.html' %}{% load static %}
+{% block title %}
+
+{% endblock %}
+{% block content%}
+<p class="text-sm-start fs-2 fw-bold">Menu Items</p>
+<table class="table table-light table-striped">
+    <tr>
+        <th class="table-dark">Menu Item</th>
+        <th class="table-dark">Price</th>
+        <th class="table-dark">Manage</th>
+    </tr>
+    {% for menuitem in object_list|dictsort:"menuItemName" %}
+    <tr>
+        <td>{{ menuitem.menuItemName }}</td>
+        <td>$ {{ menuitem.menuItemPrice }}</td>
+        <td>
+            <button type="button" class="btn btn-outline-dark" onclick="location.href='{% url 'update_menu_item' menuitem.id %}'">
+                <img src="{% static 'inventory/sliders.svg' %}" alt="sliders" width="18" height="18"><span class="align-middle"> Edit</span>
+            </button>
+            <button type="button" class="btn btn-outline-dark" onclick="location.href='{% url 'delete_menu_item' menuitem.id %}'">
+                <img src="{% static 'inventory/trash3.svg' %}" alt="trash" width="18" height="18"><span class="align-middle"> Delete</span>
+            </button>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            {% for recipe_requirement in menuitem.reciperequirement_set.all %}
+                <div class="btn-group">
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="location.href='{% url 'update_recipe_requirement' recipe_requirement.id %}'">
+                        <small>{{ recipe_requirement.ingredient.ingredientName }}: {{ recipe_requirement.quantity }} {{ recipe_requirement.ingredient.ingredientUnit }}</small>
+                    </button>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="location.href='{% url 'delete_recipe_requirement' recipe_requirement.id %}'">X</button>
+                </div>
+            {% endfor %}
+            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="location.href='{% url 'create_recipe_requirement' %}'">
+                <small>Add New Requirement</small>
+            </button>
+        </td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <td colspan="3"><button type="button" class="btn btn-dark" onclick="location.href='{% url 'create_menu_item' %}'">Add Menu Item</button></td>
+    </tr>
+</table>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}{% load static %}{% load widget_tweaks %}
+{% block title %}
+
+{% endblock %}
+{% block content %}
+<p class="text-sm-start fs-2 fw-bold">Add an Ingredient</p>
+<form method="POST">
+    {% csrf_token %}
+        {% for hidden_field in form.hidden_fields %}
+            {{ hidden_field }}
+        {% endfor %}
+
+        {% for field in form.visible_fields %}
+        <div class="form-floating mb-3">
+            {% render_field field class="form-control" %}
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        </div>
+        {% endfor %}
+    <div>
+        <input class="btn btn-outline-dark" type="submit" value="Submit"/>
+        <button type="button" class="btn btn-outline-dark" onclick="location.href='{% url 'ingredients' %}'">Cancel</button>
+    </div>
+</form>
+{% endblock %}
